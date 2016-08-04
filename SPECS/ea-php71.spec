@@ -144,8 +144,8 @@ Vendor:   cPanel, Inc.
 Name:     %{?scl_prefix}php
 Version:  7.1.0
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4588 for more details
-%define release_prefix 1
-Release:  %{rcver}%{release_prefix}%{?dist}.cpanel
+%define release_prefix 1.beta1
+Release:  %{release_prefix}%{?dist}.cpanel
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
 # TSRM is licensed under BSD
@@ -178,7 +178,7 @@ Patch42: php-7.0.0-systzdata-v13.centos.patch
 Patch43: php-5.4.0-phpize.centos.patch
 
 # cPanel patches
-#Patch100: php-7.x-mail-header.cpanel.patch
+Patch100: php-7.x-mail-header.cpanel.patch
 Patch101: php-7.x-disable-zts.cpanel.patch
 Patch102: php-7.0.x-ea4-ini.patch
 # Factory is droped from system tzdata
@@ -517,22 +517,22 @@ systems may not work as you expect. In such case, it would be a good
 idea to install the GNU libiconv library. It will most likely end up
 with more consistent results.
 
-#%package imap
-#Summary: A module for PHP applications that use IMAP
+%package imap
+Summary: A module for PHP applications that use IMAP
 #Group: Development/Languages
-## All files licensed under PHP version 3.01
-#License: PHP
-#Provides: %{?scl_prefix}php-imap%{?_isa} = %{version}-%{release}
-#Requires: %{?scl_prefix}php-common%{?_isa} = %{version}-%{release}
-#Requires: %{?scl_prefix}libc-client%{?_isa}
-#BuildRequires: krb5-devel%{?_isa}, openssl-devel%{?_isa}
-#BuildRequires: %{?scl_prefix}libc-client-devel%{?_isa}
-#Conflicts: %{?scl_prefix}php-recode = %{version}-%{release}
+# All files licensed under PHP version 3.01
+License: PHP
+Provides: %{?scl_prefix}php-imap%{?_isa} = %{version}-%{release}
+Requires: %{?scl_prefix}php-common%{?_isa} = %{version}-%{release}
+Requires: %{?scl_prefix}libc-client%{?_isa}
+BuildRequires: krb5-devel%{?_isa}, openssl-devel%{?_isa}
+BuildRequires: %{?scl_prefix}libc-client-devel%{?_isa}
+Conflicts: %{?scl_prefix}php-recode = %{version}-%{release}
 
-#%description imap
-#The %{?scl_prefix}php-imap module will add IMAP (Internet Message Access Protocol)
-#support to PHP. IMAP is a protocol for retrieving and uploading e-mail
-#messages on mail servers. PHP is an HTML-embedded scripting language.
+%description imap
+The %{?scl_prefix}php-imap module will add IMAP (Internet Message Access Protocol)
+support to PHP. IMAP is a protocol for retrieving and uploading e-mail
+messages on mail servers. PHP is an HTML-embedded scripting language.
 
 %package ldap
 Summary: A module for PHP applications that use LDAP
@@ -942,7 +942,7 @@ inside them.
 %patch7 -p1 -b .recode
 %patch42 -p1 -b .systzdata
 %patch43 -p1 -b .phpize
-#%patch100 -p1 -b .cpanelmailheader
+%patch100 -p1 -b .cpanelmailheader
 %patch101 -p1 -b .disablezts
 %patch102 -p1 -b .cpanelea4ini
 
@@ -1163,6 +1163,8 @@ build --libdir=%{_libdir}/php \
       --enable-opcache \
       --disable-opcache-file \
       --enable-phpdbg \
+      --with-imap=shared,%{_prefix} \
+      --with-imap-ssl \
       --enable-mbstring=shared \
       --enable-mbregex \
 %if %{with_webp}
@@ -1439,7 +1441,7 @@ install -m 644 %{SOURCE8} $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/php-fpm
 %endif
 
 # Generate files lists and stub .ini files for each subpackage
-for mod in pgsql odbc ldap snmp xmlrpc \
+for mod in pgsql odbc ldap snmp xmlrpc imap \
     mysqlnd mysqli pdo_mysql \
     mbstring gd dom xsl soap bcmath dba xmlreader xmlwriter \
     simplexml bz2 calendar ctype exif ftp gettext gmp iconv \
@@ -1743,7 +1745,7 @@ fi
 %files posix -f files.posix
 %files pgsql -f files.pgsql
 %files odbc -f files.odbc
-#%files imap -f files.imap
+%files imap -f files.imap
 %files ldap -f files.ldap
 %files snmp -f files.snmp
 %files xml -f files.xml
