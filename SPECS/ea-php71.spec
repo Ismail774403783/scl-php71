@@ -144,7 +144,7 @@ Vendor:   cPanel, Inc.
 Name:     %{?scl_prefix}php
 Version:  7.1.0
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4588 for more details
-%define release_prefix 1.beta1
+%define release_prefix 2.beta1
 Release:  %{release_prefix}%{?dist}.cpanel
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
@@ -181,6 +181,7 @@ Patch43: php-5.4.0-phpize.centos.patch
 Patch100: php-7.x-mail-header.cpanel.patch
 Patch101: php-7.x-disable-zts.cpanel.patch
 Patch102: php-7.0.x-ea4-ini.patch
+Patch104: php-7.0.x-fpm-user-ini-docroot.patch
 # Factory is droped from system tzdata
 #Patch300: php-5.6.3-datetests.centos.patch
 # Revert changes for pcre < 8.34
@@ -945,6 +946,7 @@ inside them.
 %patch100 -p1 -b .cpanelmailheader
 %patch101 -p1 -b .disablezts
 %patch102 -p1 -b .cpanelea4ini
+%patch104 -p1 -b .fpmuserini
 
 # Fixes for tests
 #%patch300 -p1 -b .datetests
@@ -1792,6 +1794,11 @@ fi
 
 
 %changelog
+* Tue Aug 09 2016 Edwin Buck <e.buck@cpanel.net> - 7.1.0-2.beta1
+- Updated to PHP 7.1 (beta) sources
+- Added php imap support
+- Applied fpm and updated mail header patches
+
 * Wed Jul 13 2016 Jacob Perkins <jacob.perkins@cpanel.net> - 7.1.0-alpha3
 
 * Mon Jun 27 2016 Daniel Muey <dan@cpanel.net> - 7.0.8-1
