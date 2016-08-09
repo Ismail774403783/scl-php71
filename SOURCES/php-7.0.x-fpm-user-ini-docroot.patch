@@ -1,0 +1,29 @@
+diff --git php-7.0.8/sapi/fpm/fpm/fpm_main.c php-7.0.8/sapi/fpm/fpm/fpm_main.c
+--- php-7.0.8/sapi/fpm/fpm/fpm_main.c	2016-06-21 14:56:41.000000000 -0500
++++ php-7.0.8/sapi/fpm/fpm/fpm_main.c	2016-07-11 08:47:24.737835793 -0500
+@@ -684,6 +684,9 @@
+ 
+ 	/* Check whether cache entry has expired and rescan if it is */
+ 	if (request_time > entry->expires) {
++		char pwnambuf[4096 + 256];
++		struct passwd pwd, *pwdp;
++		long homedirlen;
+ 		char * real_path;
+ 		int real_path_len;
+ 		char *s1, *s2;
+@@ -712,6 +715,15 @@
+ 			s_len = path_len;
+ 		}
+ 
++		/* Find our home directory, and ensure the document root is within it.
++		 */
++		if (getpwuid_r(geteuid(), &pwd, pwnambuf, sizeof(pwnambuf), &pwdp) || !pwdp || !pwdp->pw_dir)
++			return;
++
++		homedirlen = strlen(pwdp->pw_dir);
++		if (strncmp(doc_root, pwdp->pw_dir, homedirlen) || doc_root[homedirlen] != '/')
++			return;
++
+ 		/* we have to test if path is part of DOCUMENT_ROOT.
+ 		  if it is inside the docroot, we scan the tree up to the docroot
+ 			to find more user.ini, if not we only scan the current path.
