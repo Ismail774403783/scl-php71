@@ -144,7 +144,7 @@ Vendor:   cPanel, Inc.
 Name:     %{?scl_prefix}php
 Version:  7.1.0
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4588 for more details
-%define release_prefix 1.beta3
+%define release_prefix 3.beta3
 Release:  %{release_prefix}%{?dist}.cpanel
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
@@ -1794,7 +1794,7 @@ fi
 
 
 %changelog
-* Fri Aug 19 2016 Jacob Perkins <jacob.perkins@cpanel.net> - 7.1.0-1.beta3
+* Fri Aug 19 2016 Jacob Perkins <jacob.perkins@cpanel.net> - 7.1.0-3.beta3
 - Updated to PHP 7.1 (beta3) sources
 
 * Tue Aug 09 2016 Edwin Buck <e.buck@cpanel.net> - 7.1.0-2.beta1
