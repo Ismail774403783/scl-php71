@@ -144,7 +144,7 @@ Vendor:   cPanel, Inc.
 Name:     %{?scl_prefix}php
 Version:  7.1.0
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4588 for more details
-%define release_prefix 3.beta3
+%define release_prefix 4.beta3
 Release:  %{release_prefix}%{?dist}.cpanel
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
@@ -1705,7 +1705,7 @@ fi
 %{_root_initddir}/%{?scl_prefix}php-fpm
 %endif
 %{_sbindir}/php-fpm
-%dir %{_sysconfdir}/php-fpm.d
+%attr(0710,root,root) %dir %{_sysconfdir}/php-fpm.d
 # log owned by apache for log
 %attr(770,apache,root) %dir %{_localstatedir}/log/php-fpm
 %dir %{_localstatedir}/run/php-fpm
@@ -1794,6 +1794,9 @@ fi
 
 
 %changelog
+* Thu Sep 01 2016 S. Kurt Newman <kurt.newman@cpanel.net> - 7.1.0-4.beta3
+- Changed php-fpm.d directory to 0710 (EA-5097)
+
 * Fri Aug 19 2016 Jacob Perkins <jacob.perkins@cpanel.net> - 7.1.0-3.beta3
 - Updated to PHP 7.1 (beta3) sources
 
