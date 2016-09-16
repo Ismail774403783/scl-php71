@@ -3,7 +3,7 @@
 %global ns_name ea
 %global ns_dir /opt/cpanel
 %global pkg php71
-%global rcver beta3
+%global rcver RC2
 
 # Force Software Collections on
 %global _scl_prefix %{ns_dir}
@@ -15,7 +15,7 @@
 %scl_package php
 
 # API/ABI check
-%global apiver      20151012
+%global apiver      20160303
 %global zendver     20160303
 %global pdover      20150127
 
@@ -144,7 +144,7 @@ Vendor:   cPanel, Inc.
 Name:     %{?scl_prefix}php
 Version:  7.1.0
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4588 for more details
-%define release_prefix 4.beta3
+%define release_prefix 5.RC2
 Release:  %{release_prefix}%{?dist}.cpanel
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
@@ -1794,6 +1794,9 @@ fi
 
 
 %changelog
+* Thu Sep 15 2016 Edwin Buck <e.buck@cpanel.net> - 7.1.0-5.RC2
+- Updated to PHP 7.1 (release candidate 2) sources
+
 * Thu Sep 01 2016 S. Kurt Newman <kurt.newman@cpanel.net> - 7.1.0-4.beta3
 - Changed php-fpm.d directory to 0710 (EA-5097)
 
