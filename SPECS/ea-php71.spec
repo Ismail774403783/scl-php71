@@ -3,7 +3,7 @@
 %global ns_name ea
 %global ns_dir /opt/cpanel
 %global pkg php71
-%global rcver RC3
+%global rcver RC6
 
 # Force Software Collections on
 %global _scl_prefix %{ns_dir}
@@ -144,7 +144,7 @@ Vendor:   cPanel, Inc.
 Name:     %{?scl_prefix}php
 Version:  7.1.0
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4588 for more details
-%define release_prefix 7.RC3
+%define release_prefix 8.RC6
 Release:  %{release_prefix}%{?dist}.cpanel
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
@@ -1794,7 +1794,10 @@ fi
 
 
 %changelog
-* Fri Oct 14 2016 Edwin Buck <e.buck@cpanel.net> - 7.1.0-7.RC2
+* Thu Nov 10 2016 Edwin Buck <e.buck@cpanel.net> - 7.1.0-8.RC6
+- Updated to PHP 7.1 (release candidate 6) sources
+
+* Fri Oct 14 2016 Edwin Buck <e.buck@cpanel.net> - 7.1.0-7.RC3
 - Updated to PHP 7.1 (release candidate 3) sources
 
 * Wed Sep 28 2016 Jacob Perkins <jacob.perkins@cpanel.net> - 7.1.0-6.RC2
