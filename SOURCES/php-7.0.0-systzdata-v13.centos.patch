@@ -646,7 +646,7 @@ diff -up php-7.0.0RC1/ext/date/lib/timelib.m4.systzdata php-7.0.0RC1/ext/date/li
 @@ -78,3 +78,17 @@ stdlib.h
  
  dnl Check for strtoll, atoll
- AC_CHECK_FUNCS(strtoll atoll strftime)
+ AC_CHECK_FUNCS(strtoll atoll strftime gettimeofday)
 +
 +PHP_ARG_WITH(system-tzdata, for use of system timezone data,
 +[  --with-system-tzdata[=DIR]      to specify use of system timezone data],
