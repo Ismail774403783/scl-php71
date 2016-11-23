@@ -144,7 +144,7 @@ Vendor:   cPanel, Inc.
 Name:     %{?scl_prefix}php
 Version:  7.1.0
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4588 for more details
-%define release_prefix 8.RC6
+%define release_prefix 9.RC6
 Release:  %{release_prefix}%{?dist}.cpanel
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
@@ -272,6 +272,8 @@ Provides: %{?scl_prefix}php-readline = %{version}-%{release}, %{?scl_prefix}php-
 
 # For the ea-php-cli wrapper rpm
 Requires: ea-php-cli
+Requires: ea-php-cli-lsphp
+Requires: %{?scl_prefix}php-litespeed = %{version}-%{release}
 
 %description cli
 The php-cli package contains the command-line interface
@@ -1794,6 +1796,9 @@ fi
 
 
 %changelog
+* Thu Nov 17 2016 Edwin Buck <e.buck@cpanel.net> - 7.1.0-9.RC6
+- Make php-cli require php-litespeed
+
 * Thu Nov 10 2016 Edwin Buck <e.buck@cpanel.net> - 7.1.0-8.RC6
 - Updated to PHP 7.1 (release candidate 6) sources
 
