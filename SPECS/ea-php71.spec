@@ -144,7 +144,7 @@ Vendor:   cPanel, Inc.
 Name:     %{?scl_prefix}php
 Version:  7.1.0
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4588 for more details
-%define release_prefix 8.RC6
+%define release_prefix 11.RC6
 Release:  %{release_prefix}%{?dist}.cpanel
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
@@ -182,6 +182,7 @@ Patch100: php-7.x-mail-header.cpanel.patch
 Patch101: php-7.x-disable-zts.cpanel.patch
 Patch102: php-7.0.x-ea4-ini.patch
 Patch104: php-7.0.x-fpm-user-ini-docroot.patch
+Patch105: php-7.0.x-fpm-jailshell.patch
 # Factory is droped from system tzdata
 #Patch300: php-5.6.3-datetests.centos.patch
 # Revert changes for pcre < 8.34
@@ -272,6 +273,8 @@ Provides: %{?scl_prefix}php-readline = %{version}-%{release}, %{?scl_prefix}php-
 
 # For the ea-php-cli wrapper rpm
 Requires: ea-php-cli
+Requires: ea-php-cli-lsphp
+Requires: %{?scl_prefix}php-litespeed = %{version}-%{release}
 
 %description cli
 The php-cli package contains the command-line interface
@@ -947,6 +950,7 @@ inside them.
 %patch101 -p1 -b .disablezts
 %patch102 -p1 -b .cpanelea4ini
 %patch104 -p1 -b .fpmuserini
+%patch105 -p1 -b .fpmjailshell
 
 # Fixes for tests
 #%patch300 -p1 -b .datetests
@@ -1126,7 +1130,6 @@ ln -sf ../configure
     --enable-gd-native-ttf \
     --without-gdbm \
     --with-gettext \
-    --with-gmp \
     --with-iconv \
     --with-jpeg-dir=%{_root_prefix} \
     --with-openssl \
@@ -1140,7 +1143,6 @@ ln -sf ../configure
     --enable-sockets \
     --with-kerberos \
     --enable-shmop \
-    --enable-calendar \
     --with-libxml-dir=%{_root_prefix} \
     --with-system-tzdata \
     --with-mhash \
@@ -1261,7 +1263,8 @@ without_shared="--without-gd \
       --disable-simplexml --disable-exif --without-gettext \
       --without-iconv --disable-ftp --without-bz2 --disable-ctype \
       --disable-shmop --disable-sockets --disable-tokenizer \
-      --disable-sysvmsg --disable-sysvshm --disable-sysvsem"
+      --disable-sysvmsg --disable-sysvshm --disable-sysvsem \
+      --without-gmp --disable-calendar"
 
 %if %{with_httpd}
 # Build Apache module, and the CLI SAPI, /usr/bin/php
@@ -1794,6 +1797,16 @@ fi
 
 
 %changelog
+* Fri Nov 18 2016 S. Kurt Newman <kurt.newman@cpanel.net> - 7.1.0-11.RC6
+- Fix erronous getpwnam message in php-fpm jailshell code
+
+* Fri Nov 18 2016 S. Kurt Newman <kurt.newman@cpanel.net> - 7.1.0-10.RC6
+- Ensure the same extensions are compiled statically across all
+  SAPI types (EA-5587)
+
+* Thu Nov 17 2016 Edwin Buck <e.buck@cpanel.net> - 7.1.0-9.RC6
+- Make php-cli require php-litespeed
+
 * Thu Nov 10 2016 Edwin Buck <e.buck@cpanel.net> - 7.1.0-8.RC6
 - Updated to PHP 7.1 (release candidate 6) sources
 
