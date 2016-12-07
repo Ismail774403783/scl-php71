@@ -144,7 +144,7 @@ Vendor:   cPanel, Inc.
 Name:     %{?scl_prefix}php
 Version:  7.1.0
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4588 for more details
-%define release_prefix 11.RC6
+%define release_prefix 12.RC6
 Release:  %{release_prefix}%{?dist}.cpanel
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
@@ -296,7 +296,6 @@ Summary: PHP FastCGI Process Manager
 # Zend is licensed under Zend
 # TSRM and fpm are licensed under BSD
 License: PHP and Zend and BSD
-Requires(pre): %{_root_sbindir}/useradd
 Requires: %{?scl_prefix}php-common%{?_isa} = %{version}-%{release}
 Requires: %{?scl_prefix}php-cli%{?_isa} = %{version}-%{release}
 %if %{with_systemd}
@@ -1560,15 +1559,6 @@ rm -f README.{Zeus,QNX,CVS-RULES}
 rm files.* macros.*
 
 %if %{with_fpm}
-%pre fpm
-# Add the "apache" user (to avoid pulling httpd in our dep)
-getent group  apache >/dev/null || \
-  groupadd -g 48 -r apache
-getent passwd apache >/dev/null || \
-  useradd -r -u 48 -g apache -s /sbin/nologin \
-    -d %{_httpd_contentdir} -c "Apache" apache
-exit 0
-
 %post fpm
 %if 0%{?systemd_post:1}
 %systemd_post %{?scl_prefix}php-fpm.service
@@ -1709,8 +1699,8 @@ fi
 %endif
 %{_sbindir}/php-fpm
 %attr(0710,root,root) %dir %{_sysconfdir}/php-fpm.d
-# log owned by apache for log
-%attr(770,apache,root) %dir %{_localstatedir}/log/php-fpm
+# log owned by nobody for log
+%attr(770,nobody,root) %dir %{_localstatedir}/log/php-fpm
 %dir %{_localstatedir}/run/php-fpm
 %{_mandir}/man8/php-fpm.8*
 %dir %{_datadir}/fpm
@@ -1797,6 +1787,9 @@ fi
 
 
 %changelog
+* Mon Dec 05 2016 Dan Muey <dan@cpanel.net> - 7.1.0-12.RC6
+- EA-3685: do not create apache user/group since we use nobody
+
 * Fri Nov 18 2016 S. Kurt Newman <kurt.newman@cpanel.net> - 7.1.0-11.RC6
 - Fix erronous getpwnam message in php-fpm jailshell code
 
