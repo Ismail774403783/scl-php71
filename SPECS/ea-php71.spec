@@ -143,7 +143,7 @@ Vendor:   cPanel, Inc.
 Name:     %{?scl_prefix}php
 Version:  7.1.0
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4588 for more details
-%define release_prefix 13
+%define release_prefix 14
 Release:  %{release_prefix}%{?dist}.cpanel
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
@@ -152,7 +152,7 @@ License:  PHP and Zend and BSD
 Group:    Development/Languages
 URL:      http://www.php.net/
 
-Source0: http://www.php.net/distributions/php-%{version}%{?rcver}.tar.bz2
+Source0: http://www.php.net/distributions/php-%{version}.tar.bz2
 Source2: php.ini
 Source3: macros.php
 Source4: php-fpm.conf
@@ -939,7 +939,7 @@ inside them.
 %prep
 : Building %{name}-%{version}-%{release} with systemd=%{with_systemd} interbase=%{with_interbase} mcrypt=%{with_mcrypt} sqlite3=%{with_sqlite3} tidy=%{with_tidy} zip=%{with_zip}
 
-%setup -q -n php-%{version}%{?rcver}
+%setup -q -n php-%{version}
 
 %patch7 -p1 -b .recode
 %patch42 -p1 -b .systzdata
@@ -998,9 +998,9 @@ rm Zend/tests/bug68412.phpt
 
 # Safety check for API version change.
 pver=$(sed -n '/#define PHP_VERSION /{s/.* "//;s/".*$//;p}' main/php_version.h)
-if test "x${pver}" != "x%{version}%{?rcver}"; then
-   : Error: Upstream PHP version is now ${pver}, expecting %{version}%{?rcver}.
-   : Update the version/rcver macros and rebuild.
+if test "x${pver}" != "x%{version}"; then
+   : Error: Upstream PHP version is now ${pver}, expecting %{version}.
+   : Update the version macros and rebuild.
    exit 1
 fi
 
@@ -1724,7 +1724,7 @@ fi
 %files embedded
 %defattr(-,root,root,-)
 %{_libdir}/libphp7.so
-%{_libdir}/libphp7-%{embed_version}%{?rcver}.so
+%{_libdir}/libphp7-%{embed_version}.so
 %endif
 
 %files bz2 -f files.bz2
@@ -1786,6 +1786,9 @@ fi
 
 
 %changelog
+* Thu Dec 14 2016 Dan Muey <dan@cpanel.net> - 7.1.0-14
+- EA-5784: Remove no longer unused rcver
+
 * Fri Dec 09 2016 Jacob Perkins <jacob.perkins@cpanel.net> - 7.1.0-13
 - Update for final PHP 7.1.0
 
