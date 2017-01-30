@@ -77,7 +77,7 @@
 %else
 %global with_interbase 0
 %endif
-%if 0%{?rhel} < 7
+%if 0%{?rhel} >= 6
 %global with_tidy 1
 %else
 %global with_tidy 0
@@ -143,7 +143,7 @@ Vendor:   cPanel, Inc.
 Name:     %{?scl_prefix}php
 Version:  7.1.1
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4588 for more details
-%define release_prefix 2
+%define release_prefix 3
 Release:  %{release_prefix}%{?dist}.cpanel
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
@@ -1786,8 +1786,11 @@ fi
 
 
 %changelog
-* Thu Jan 26 2017 Dan Muey <dan@cpanel.net> - 7.1.1-2
+* Fri Feb 03 2017 Dan Muey <dan@cpanel.net> - 7.1.1-3
 - EA-5839: Add opcache.validate_permission to opcache ini
+
+* Mon Jan 30 2017 Dan Muey <dan@cpanel.net> - 7.1.1-2
+- EA-5807: enable php-tidy on rhel 6 and above
 
 * Thu Jan 19 2017 Daniel Muey <dan@cpanel.net> - 7.1.1-1
 - Updated to version 7.1.1 via update_pkg.pl (EA-5876)
