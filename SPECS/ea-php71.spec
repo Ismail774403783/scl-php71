@@ -79,6 +79,7 @@
 %endif
 %if 0%{?rhel} >= 6
 %global with_tidy 1
+%global libtidy_prefix /opt/cpanel/libtidy
 %else
 %global with_tidy 0
 %endif
@@ -843,7 +844,7 @@ Group: Development/Languages
 # All files licensed under PHP version 3.01
 License: PHP
 Requires: %{?scl_prefix}php-common%{?_isa} = %{version}-%{release}
-BuildRequires: libtidy-devel
+BuildRequires: %{ns_name}-libtidy-devel
 
 %description tidy
 The %{?scl_prefix}php-tidy package contains a dynamic shared object that will add
@@ -1234,7 +1235,7 @@ build --libdir=%{_libdir}/php \
       --with-mcrypt=shared,%{mcrypt_prefix} \
 %endif
 %if %{with_tidy}
-      --with-tidy=shared,%{_root_prefix} \
+      --with-tidy=shared,%{libtidy_prefix} \
 %endif
       --enable-sysvmsg=shared --enable-sysvshm=shared --enable-sysvsem=shared \
       --enable-shmop=shared \
