@@ -77,8 +77,9 @@
 %else
 %global with_interbase 0
 %endif
-%if 0%{?rhel} < 7
+%if 0%{?rhel} >= 6
 %global with_tidy 1
+%global libtidy_prefix /opt/cpanel/libtidy
 %else
 %global with_tidy 0
 %endif
@@ -143,7 +144,7 @@ Vendor:   cPanel, Inc.
 Name:     %{?scl_prefix}php
 Version:  7.1.1
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4588 for more details
-%define release_prefix 1
+%define release_prefix 4
 Release:  %{release_prefix}%{?dist}.cpanel
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
@@ -843,7 +844,8 @@ Group: Development/Languages
 # All files licensed under PHP version 3.01
 License: PHP
 Requires: %{?scl_prefix}php-common%{?_isa} = %{version}-%{release}
-BuildRequires: libtidy-devel
+Requires: %{ns_name}-libtidy
+BuildRequires: %{ns_name}-libtidy-devel
 
 %description tidy
 The %{?scl_prefix}php-tidy package contains a dynamic shared object that will add
@@ -1234,7 +1236,7 @@ build --libdir=%{_libdir}/php \
       --with-mcrypt=shared,%{mcrypt_prefix} \
 %endif
 %if %{with_tidy}
-      --with-tidy=shared,%{_root_prefix} \
+      --with-tidy=shared,%{libtidy_prefix} \
 %endif
       --enable-sysvmsg=shared --enable-sysvshm=shared --enable-sysvsem=shared \
       --enable-shmop=shared \
@@ -1786,6 +1788,15 @@ fi
 
 
 %changelog
+* Mon Feb 06 2017 Dan Muey <dan@cpanel.net> - 7.1.1-4
+- EA-5946: force requirement of ea-libtidy instead of .so from BuildRequires ea-libtidy-devel
+
+* Fri Feb 03 2017 Dan Muey <dan@cpanel.net> - 7.1.1-3
+- EA-5839: Add opcache.validate_permission to opcache ini
+
+* Mon Jan 30 2017 Dan Muey <dan@cpanel.net> - 7.1.1-2
+- EA-5807: enable php-tidy on rhel 6 and above
+
 * Thu Jan 19 2017 Daniel Muey <dan@cpanel.net> - 7.1.1-1
 - Updated to version 7.1.1 via update_pkg.pl (EA-5876)
 
