@@ -142,9 +142,9 @@
 Summary:  PHP scripting language for creating dynamic web sites
 Vendor:   cPanel, Inc.
 Name:     %{?scl_prefix}php
-Version:  7.1.1
+Version:  7.1.2
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4588 for more details
-%define release_prefix 4
+%define release_prefix 1
 Release:  %{release_prefix}%{?dist}.cpanel
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
@@ -1788,6 +1788,9 @@ fi
 
 
 %changelog
+* Fri Feb 17 2017 Jacob Perkins <jacob.perkins@cpanel.net> - 7.1.2-1
+- Updated to version 7.1.2 via update_pkg.pl (EA-5998)
+
 * Mon Feb 06 2017 Dan Muey <dan@cpanel.net> - 7.1.1-4
 - EA-5946: force requirement of ea-libtidy instead of .so from BuildRequires ea-libtidy-devel
 
