@@ -144,7 +144,7 @@ Vendor:   cPanel, Inc.
 Name:     %{?scl_prefix}php
 Version:  7.1.2
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4588 for more details
-%define release_prefix 1
+%define release_prefix 2
 Release:  %{release_prefix}%{?dist}.cpanel
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
@@ -346,8 +346,6 @@ Provides: %{?scl_prefix}php(zend-abi) = %{zendver}%{isasuffix}
 Provides: %{?scl_prefix}php(language) = %{version}
 Provides: %{?scl_prefix}php(language)%{?_isa} = %{version}
 # Provides for all builtin/shared modules:
-Provides: %{?scl_prefix}php-bz2 = %{version}-%{release}, %{?scl_prefix}php-bz2%{?_isa} = %{version}-%{release}
-Provides: %{?scl_prefix}php-calendar = %{version}-%{release}, %{?scl_prefix}php-calendar%{?_isa} = %{version}-%{release}
 Provides: %{?scl_prefix}php-core = %{version}, %{?scl_prefix}php-core%{?_isa} = %{version}
 Provides: %{?scl_prefix}php-ctype = %{version}-%{release}, %{?scl_prefix}php-ctype%{?_isa} = %{version}-%{release}
 Provides: %{?scl_prefix}php-date = %{version}-%{release}, %{?scl_prefix}php-date%{?_isa} = %{version}-%{release}
@@ -1788,6 +1786,9 @@ fi
 
 
 %changelog
+* Fri Feb 24 2017 Dan Muey <dan@cpanel.net> - 7.1.2-2
+- EA-6008: remove bz2 and calendar from common’s Provides
+
 * Fri Feb 17 2017 Jacob Perkins <jacob.perkins@cpanel.net> - 7.1.2-1
 - Updated to version 7.1.2 via update_pkg.pl (EA-5998)
 
