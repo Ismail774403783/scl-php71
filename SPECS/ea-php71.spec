@@ -70,6 +70,8 @@
 %else
 %global with_webp 0
 %endif
+%global with_curl     1
+%global libcurl_prefix /opt/cpanel/libcurl
 %global with_mcrypt    1
 %global mcrypt_prefix  /opt/cpanel/libmcrypt
 %if 0%{?fedora}
@@ -144,7 +146,7 @@ Vendor:   cPanel, Inc.
 Name:     %{?scl_prefix}php
 Version:  7.1.2
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4588 for more details
-%define release_prefix 1
+%define release_prefix 4
 Release:  %{release_prefix}%{?dist}.cpanel
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
@@ -192,7 +194,7 @@ Patch105: php-7.0.x-fpm-jailshell.patch
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
-BuildRequires: bzip2-devel, curl-devel >= 7.9, %{db_devel}
+BuildRequires: bzip2-devel, %{ns_name}-libcurl, %{ns_name}-libcurl-devel, %{db_devel}
 BuildRequires: pam-devel
 BuildRequires: libstdc++-devel, openssl-devel, scl-utils-build
 %if %{with_sqlite3}
@@ -346,8 +348,6 @@ Provides: %{?scl_prefix}php(zend-abi) = %{zendver}%{isasuffix}
 Provides: %{?scl_prefix}php(language) = %{version}
 Provides: %{?scl_prefix}php(language)%{?_isa} = %{version}
 # Provides for all builtin/shared modules:
-Provides: %{?scl_prefix}php-bz2 = %{version}-%{release}, %{?scl_prefix}php-bz2%{?_isa} = %{version}-%{release}
-Provides: %{?scl_prefix}php-calendar = %{version}-%{release}, %{?scl_prefix}php-calendar%{?_isa} = %{version}-%{release}
 Provides: %{?scl_prefix}php-core = %{version}, %{?scl_prefix}php-core%{?_isa} = %{version}
 Provides: %{?scl_prefix}php-ctype = %{version}-%{release}, %{?scl_prefix}php-ctype%{?_isa} = %{version}-%{release}
 Provides: %{?scl_prefix}php-date = %{version}-%{release}, %{?scl_prefix}php-date%{?_isa} = %{version}-%{release}
@@ -432,10 +432,12 @@ Summary: A module for PHP applications that need to interface with curl
 Group: Development/Languages
 License: PHP
 Requires: %{?scl_prefix}php-common%{?_isa} = %{version}-%{release}
+Requires: %{ns_name}-libcurl
+BuildRequires: libssh2 libssh2-devel libidn libidn-devel
 Provides: %{?scl_prefix}php-curl = %{version}-%{release}, %{?scl_prefix}php-curl%{?_isa} = %{version}-%{release}
 
 %description curl
-The php-calendar package delivers a module which will allow PHP
+The php-curl package delivers a module which will allow PHP
 scripts to connect and communicate to many different types of servers
 with many different types of protocols. libcurl currently supports the
 http, https, ftp, gopher, telnet, dict, file, and ldap
@@ -1206,7 +1208,7 @@ build --libdir=%{_libdir}/php \
       --enable-soap=shared \
       --with-xsl=shared,%{_root_prefix} \
       --enable-xmlreader=shared --enable-xmlwriter=shared \
-      --with-curl=shared,%{_root_prefix} \
+      --with-curl=shared,%{libcurl_prefix} \
       --enable-pdo=shared \
       --with-pdo-odbc=shared,unixODBC,%{_root_prefix} \
       --with-pdo-mysql=shared,mysqlnd \
@@ -1788,6 +1790,15 @@ fi
 
 
 %changelog
+* Thu Mar 09 2017 Cory McIntire <cory@cpanel.net> - 7.1.2-4
+- ZC-2475: PHPs need build reqs when building for libcurl
+
+* Wed Mar 08 2017 Cory McIntire <cory@cpanel.net> - 7.1.2-3
+- EA-2422: Have PHPs use our ea-libcurl
+
+* Fri Feb 24 2017 Dan Muey <dan@cpanel.net> - 7.1.2-2
+- EA-6008: remove bz2 and calendar from common’s Provides
+
 * Fri Feb 17 2017 Jacob Perkins <jacob.perkins@cpanel.net> - 7.1.2-1
 - Updated to version 7.1.2 via update_pkg.pl (EA-5998)
 
