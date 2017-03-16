@@ -144,9 +144,9 @@
 Summary:  PHP scripting language for creating dynamic web sites
 Vendor:   cPanel, Inc.
 Name:     %{?scl_prefix}php
-Version:  7.1.2
+Version:  7.1.3
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4588 for more details
-%define release_prefix 4
+%define release_prefix 1
 Release:  %{release_prefix}%{?dist}.cpanel
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
@@ -1790,6 +1790,9 @@ fi
 
 
 %changelog
+* Thu Mar 16 2017 Daniel Muey <dan@cpanel.net> - 7.1.3-1
+- Updated to version 7.1.3 via update_pkg.pl (EA-6079)
+
 * Thu Mar 09 2017 Cory McIntire <cory@cpanel.net> - 7.1.2-4
 - ZC-2475: PHPs need build reqs when building for libcurl
 
