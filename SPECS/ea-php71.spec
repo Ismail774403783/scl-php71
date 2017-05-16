@@ -1336,9 +1336,9 @@ unset NO_INTERACTION REPORT_EXIT_STATUS MALLOC_CHECK_
 [ "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT
 
 # Make the eaphp## symlinks
-install -d $RPM_BUILD_ROOT/usr/bin
-ln -sf /opt/cpanel/ea-php71/root/usr/bin/php $RPM_BUILD_ROOT/usr/local/bin/ea-php71
 install -d $RPM_BUILD_ROOT/usr/local/bin
+ln -sf /opt/cpanel/ea-php71/root/usr/bin/php $RPM_BUILD_ROOT/usr/local/bin/ea-php71
+install -d $RPM_BUILD_ROOT/usr/bin
 ln -sf /opt/cpanel/ea-php71/root/usr/bin/php-cgi $RPM_BUILD_ROOT/usr/bin/ea-php71
 
 %if %{with_embed}
