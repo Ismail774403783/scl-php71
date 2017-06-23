@@ -138,9 +138,9 @@
 Summary:  PHP scripting language for creating dynamic web sites
 Vendor:   cPanel, Inc.
 Name:     %{?scl_prefix}php
-Version:  7.1.5
+Version:  7.1.6
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4588 for more details
-%define release_prefix 3
+%define release_prefix 2
 Release:  %{release_prefix}%{?dist}.cpanel
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
@@ -661,7 +661,7 @@ Group: Development/Languages
 # All files licensed under PHP version 3.01
 License: PHP
 Requires: %{?scl_prefix}php-common%{?_isa} = %{version}-%{release}
-BuildRequires: ea-libxml2-devel
+BuildRequires: libxml2-devel
 
 %description soap
 The %{?scl_prefix}php-soap package contains a dynamic shared object that will add
@@ -733,7 +733,7 @@ Provides: %{?scl_prefix}php-xmlreader = %{version}-%{release}, %{?scl_prefix}php
 Provides: %{?scl_prefix}php-xmlwriter = %{version}-%{release}, %{?scl_prefix}php-xmlwriter%{?_isa} = %{version}-%{release}
 Provides: %{?scl_prefix}php-xsl = %{version}-%{release}, %{?scl_prefix}php-xsl%{?_isa} = %{version}-%{release}
 Provides: %{?scl_prefix}php-simplexml = %{version}-%{release}, %{?scl_prefix}php-simplexml%{?_isa} = %{version}-%{release}
-BuildRequires: libxslt-devel >= 1.0.18-1, ea-libxml2-devel >= 2.4.14-1
+BuildRequires: libxslt-devel >= 1.0.18-1, libxml2-devel >= 2.4.14-1
 
 %description xml
 The %{?scl_prefix}php-xml package contains dynamic shared objects which add support
@@ -1139,7 +1139,7 @@ ln -sf ../configure
     --enable-sockets \
     --with-kerberos \
     --enable-shmop \
-    --with-libxml-dir=/opt/cpanel/ea-libxml2 \
+    --with-libxml-dir=%{_root_prefix} \
     --with-system-tzdata \
     --with-mhash \
 %if %{with_dtrace}
@@ -1793,10 +1793,16 @@ fi
 
 
 %changelog
-* Thu Jun 22 2017 Jacob Perkins <jacob.perkins@cpanel.net> - 7.1.5-3
+* Thu Jun 22 2017 Jacob Perkins <jacob.perkins@cpanel.net> - 7.1.6-2
 - EA-6232: Build -curl with HTTP/2 support
 
-* Tue May 18 2017 Jacob Perkins <jacob.perkins@cpanel.net> - 7.1.5-2
+* Thu Jun 08 2017 Cory McIntire <cory@cpanel.net> - 7.1.6-1
+- Updated to version 7.1.6 via update_pkg.pl (EA-6372)
+
+* Wed May 17 2017 Jacob Perkins <jacob.perkins@cpanel.net> - 7.1.5-3
+- EA-6292: Switch libxml2 to OS provided libraries
+
+* Tue May 16 2017 Jacob Perkins <jacob.perkins@cpanel.net> - 7.1.5-2
 - EA-6282: Swapped ea-php## symlinks to match EasyApache 3 compatibility
 
 * Thu May 11 2017 Jacob Perkins <jacob.perkins@cpanel.net> - 7.1.5-1
