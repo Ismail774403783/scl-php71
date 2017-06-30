@@ -136,11 +136,14 @@
 %endif
 
 Summary:  PHP scripting language for creating dynamic web sites
+%if %{with_httpd}
+Summary:  PHP DSO
+%endif
 Vendor:   cPanel, Inc.
 Name:     %{?scl_prefix}php
 Version:  7.1.6
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4588 for more details
-%define release_prefix 2
+%define release_prefix 3
 Release:  %{release_prefix}%{?dist}.cpanel
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
@@ -246,16 +249,15 @@ Requires: %{?scl_prefix}php-cli%{?_isa} = %{version}-%{release}
 
 
 %description
+%if %{with_httpd}
+Package that installs Apache's mod_php DSO module for PHP 7.1
+%else
 PHP is an HTML-embedded scripting language. PHP attempts to make it
 easy for developers to write dynamically generated web pages. PHP also
 offers built-in database integration for several commercial and
 non-commercial database management systems, so writing a
 database-enabled webpage with PHP is fairly simple. The most common
 use of PHP coding is probably as a replacement for CGI scripts.
-
-%if %{with_httpd}
-This package contains the module (often referred to as mod_php)
-which adds support for the PHP language to system Apache HTTP Server.
 %endif
 
 
@@ -1793,6 +1795,9 @@ fi
 
 
 %changelog
+* Wed Jun 28 2017 Dan Muey <dan@cpanel.net> - 7.1.6-3
+- EA-6484: Clarify Summary and Description for DSO
+
 * Thu Jun 22 2017 Jacob Perkins <jacob.perkins@cpanel.net> - 7.1.6-2
 - EA-6232: Build -curl with HTTP/2 support
 
