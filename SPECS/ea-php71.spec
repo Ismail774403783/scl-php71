@@ -141,9 +141,9 @@ Summary:  PHP DSO
 %endif
 Vendor:   cPanel, Inc.
 Name:     %{?scl_prefix}php
-Version:  7.1.8
+Version:  7.1.9
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4588 for more details
-%define release_prefix 2
+%define release_prefix 1
 Release:  %{release_prefix}%{?dist}.cpanel
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
@@ -1795,6 +1795,9 @@ fi
 
 
 %changelog
+* Thu Aug 31 2017 Cory McIntire <cory@cpanel.net> - 7.1.9-1
+- Updated to version 7.1.9 via update_pkg.pl (EA-6752)
+
 * Wed Aug 30 2017 Dan Muey <dan@cpanel.net> - 7.1.8-2
 - ZC-2827: Fix SRPM scl definition (thank you to JoyceBabu for bringing this to our attention)
 
