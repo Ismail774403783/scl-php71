@@ -177,7 +177,7 @@ Patch42: php-7.0.0-systzdata-v13.centos.patch
 Patch43: php-5.4.0-phpize.centos.patch
 
 # cPanel patches
-Patch100: php-7.x-mail-header.cpanel.patch
+Patch100: php-7.1.x-mail-header.cpanel.patch
 Patch101: php-7.x-disable-zts.cpanel.patch
 Patch102: php-7.0.x-ea4-ini.patch
 Patch104: php-7.0.x-fpm-user-ini-docroot.patch
