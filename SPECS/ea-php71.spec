@@ -143,7 +143,7 @@ Vendor:   cPanel, Inc.
 Name:     %{?scl_prefix}php
 Version:  7.1.10
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4588 for more details
-%define release_prefix 1
+%define release_prefix 2
 Release:  %{release_prefix}%{?dist}.cpanel
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
@@ -949,6 +949,8 @@ inside them.
 %patch102 -p1 -b .cpanelea4ini
 %patch104 -p1 -b .fpmuserini
 %patch105 -p1 -b .fpmjailshell
+# 7.1 does not need this for tidy even thought the instructions say to do it, weird ...
+# sed -i 's/buffio.h/tidybuffio.h/' ext/tidy/*.c
 
 # Fixes for tests
 #%patch300 -p1 -b .datetests
@@ -1795,6 +1797,9 @@ fi
 
 
 %changelog
+* Mon Oct 09 2017 Dan Muey <dan@cpanel.net> - 7.1.10-2
+- EA-6819: Patch to support libtidy 5.4.0
+
 * Sun Oct 01 2017 Jacob Perkins <jacob.perkins@cpanel.net> - 7.1.10-1
 - Updated to version 7.1.10 via update_pkg.pl (EA-6850)
 
