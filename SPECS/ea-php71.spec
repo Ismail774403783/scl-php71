@@ -143,7 +143,7 @@ Vendor:   cPanel, Inc.
 Name:     %{?scl_prefix}php
 Version:  7.1.13
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4588 for more details
-%define release_prefix 1
+%define release_prefix 4
 Release:  %{release_prefix}%{?dist}.cpanel
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
@@ -182,6 +182,7 @@ Patch101: php-7.x-disable-zts.cpanel.patch
 Patch102: php-7.0.x-ea4-ini.patch
 Patch104: php-7.0.x-fpm-user-ini-docroot.patch
 Patch105: php-7.0.x-fpm-jailshell.patch
+Patch200: php-fpm.epoll.patch
 # Factory is droped from system tzdata
 #Patch300: php-5.6.3-datetests.centos.patch
 # Revert changes for pcre < 8.34
@@ -663,7 +664,7 @@ Group: Development/Languages
 # All files licensed under PHP version 3.01
 License: PHP
 Requires: %{?scl_prefix}php-common%{?_isa} = %{version}-%{release}
-BuildRequires: libxml2-devel
+BuildRequires: ea-libxml2-devel
 
 %description soap
 The %{?scl_prefix}php-soap package contains a dynamic shared object that will add
@@ -735,7 +736,7 @@ Provides: %{?scl_prefix}php-xmlreader = %{version}-%{release}, %{?scl_prefix}php
 Provides: %{?scl_prefix}php-xmlwriter = %{version}-%{release}, %{?scl_prefix}php-xmlwriter%{?_isa} = %{version}-%{release}
 Provides: %{?scl_prefix}php-xsl = %{version}-%{release}, %{?scl_prefix}php-xsl%{?_isa} = %{version}-%{release}
 Provides: %{?scl_prefix}php-simplexml = %{version}-%{release}, %{?scl_prefix}php-simplexml%{?_isa} = %{version}-%{release}
-BuildRequires: libxslt-devel >= 1.0.18-1, libxml2-devel >= 2.4.14-1
+BuildRequires: libxslt-devel >= 1.0.18-1, ea-libxml2-devel >= 2.4.14-1
 
 %description xml
 The %{?scl_prefix}php-xml package contains dynamic shared objects which add support
@@ -949,6 +950,7 @@ inside them.
 %patch102 -p1 -b .cpanelea4ini
 %patch104 -p1 -b .fpmuserini
 %patch105 -p1 -b .fpmjailshell
+%patch200 -p1 -b .fpmepoll
 # 7.1 does not need this for tidy even thought the instructions say to do it, weird ...
 # sed -i 's/buffio.h/tidybuffio.h/' ext/tidy/*.c
 
@@ -1143,7 +1145,7 @@ ln -sf ../configure
     --enable-sockets \
     --with-kerberos \
     --enable-shmop \
-    --with-libxml-dir=%{_root_prefix} \
+    --with-libxml-dir=/opt/cpanel/ea-libxml2 \
     --with-system-tzdata \
     --with-mhash \
 %if %{with_dtrace}
@@ -1797,13 +1799,22 @@ fi
 
 
 %changelog
+* Fri Jan 12 2018 <darren@cpanel.net> - 7.1.13-4
+- HB-3263: Ensure securetmp is done before starting FPM
+
+* Thu Jan 11 2018 Cory McIntire <cory@cpanel.net> - 7.1.13-3
+- EA-7044: Adjust PHPs to use ea-libxml2
+
+* Tue Jan 09 2018 <julian.brown@cpanel.net> - 7.1.13-2
+- HB-3061: Fix epoll bug.
+
 * Fri Jan 05 2018 Jacob Perkins <jacob.perkins@cpanel.net> - 7.1.13-1
 - Updated to version 7.1.13 via update_pkg.pl (EA-7070)
 
 * Sun Nov 26 2017 Cory McIntire <cory@cpanel.net> - 7.1.12-1
 - Updated to version 7.1.12 via update_pkg.pl (ZC-3097)
 
-* Mon Nov 06 2017 <dan@cpanel.net> - 7.1.11-2
+* Mon Nov 06 2017 Dan Muey <dan@cpanel.net> - 7.1.11-2
 - EA-6812: build PHP against ea-openssl like Apache
 
 * Fri Oct 27 2017 Jacob Perkins <jacob.perkins@cpanel.net> - 7.1.11-1
