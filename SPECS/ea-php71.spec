@@ -143,7 +143,7 @@ Vendor:   cPanel, Inc.
 Name:     %{?scl_prefix}php
 Version:  7.1.13
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4588 for more details
-%define release_prefix 4
+%define release_prefix 5
 Release:  %{release_prefix}%{?dist}.cpanel
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
@@ -1799,6 +1799,9 @@ fi
 
 
 %changelog
+* Fri Jan 19 2018 <darren@cpanel.net> - 7.1.13-5
+- HB-3287: Increase open file limit for php-fpm by default
+
 * Fri Jan 12 2018 <darren@cpanel.net> - 7.1.13-4
 - HB-3263: Ensure securetmp is done before starting FPM
 
