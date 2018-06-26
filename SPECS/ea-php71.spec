@@ -144,9 +144,9 @@ Summary:  PHP DSO
 %endif
 Vendor:   cPanel, Inc.
 Name:     %{?scl_prefix}php
-Version:  7.1.18
+Version:  7.1.19
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4588 for more details
-%define release_prefix 2
+%define release_prefix 1
 Release:  %{release_prefix}%{?dist}.cpanel
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
@@ -1818,6 +1818,9 @@ fi
 
 
 %changelog
+* Tue Jun 26 2018 Cory McIntire <cory@cpanel.net> - 7.1.19-1
+- Updated to version 7.1.19 via update_pkg.pl (EA-7604)
+
 * Tue Jun 5 2018 Rishwanth Yeddula <rish@cpanel.net> - 7.1.18-2
 - EA-7359: Ensure ea-libxml2 is listed as a requirement for the php-xml package.
 
