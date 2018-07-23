@@ -144,9 +144,9 @@ Summary:  PHP DSO
 %endif
 Vendor:   cPanel, Inc.
 Name:     %{?scl_prefix}php
-Version:  7.1.19
+Version:  7.1.20
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4588 for more details
-%define release_prefix 1
+%define release_prefix 2
 Release:  %{release_prefix}%{?dist}.cpanel
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
@@ -1736,6 +1736,11 @@ fi
 %{_mandir}/man8/php-fpm.8*
 %dir %{_datadir}/fpm
 %{_datadir}/fpm/status.html
+%dir %{_sysconfdir}/sysconfig
+%dir %{_sbindir}
+%dir %{_mandir}/man8
+%dir %{_localstatedir}/log
+%dir %{_localstatedir}/run
 %endif
 
 %if %{with_lsws}
@@ -1818,6 +1823,12 @@ fi
 
 
 %changelog
+* Wed Jul 23 2018 Tim Mullin <tim@cpanel.net> - 7.1.20-2
+- Fixed php-fpm installing directories it does not own (EA-7526)
+
+* Thu Jul 19 2018 Cory McIntire <cory@cpanel.net> - 7.1.20-1
+- Updated to version 7.1.20 via update_pkg.pl (EA-7707)
+
 * Tue Jun 26 2018 Cory McIntire <cory@cpanel.net> - 7.1.19-1
 - Updated to version 7.1.19 via update_pkg.pl (EA-7604)
 
