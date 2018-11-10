@@ -1,7 +1,7 @@
-From ea5d3fc2fcc4fe8c797e5732ae26d2c50b5c37b3 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Giam Teck Choon <giamteckchoon@gmail.com>
 Date: Wed, 18 Oct 2017 08:35:23 +0000
-Subject: [PATCH] PHP mail() header patch for v7.1.x
+Subject: [PATCH 4/9] PHP mail() header patch for v7.1.x
 
 This is a patch to add an informational header to messages sent from PHP via
 the mail() function. This can help to track which script on a server was used
@@ -40,11 +40,11 @@ Special thanks to:
 
 Signed-off-by: Giam Teck Choon <giamteckchoon@gmail.com>
 ---
- ext/standard/mail.c | 50 ++++++++++++++++++++++++++++++++++++++++++++++++++
+ ext/standard/mail.c | 50 +++++++++++++++++++++++++++++++++++++++++++++
  1 file changed, 50 insertions(+)
 
 diff --git a/ext/standard/mail.c b/ext/standard/mail.c
-index 26272cd..8e4e29a 100644
+index 735ea249..a37ccf86 100644
 --- a/ext/standard/mail.c
 +++ b/ext/standard/mail.c
 @@ -336,6 +336,52 @@ PHPAPI int php_mail(char *to, char *subject, char *message, char *headers, char
@@ -111,6 +111,3 @@ index 26272cd..8e4e29a 100644
  		if (hdr != NULL) {
  			fprintf(sendmail, "%s\n", hdr);
  		}
--- 
-1.8.3.1
-

@@ -169,29 +169,22 @@ Source11: php-fpm.init
 Source50: 10-opcache.ini
 Source51: opcache-default.blacklist
 
+
 # Allow us to configure imap and recode at same time, but adjust conflicts
 # to prevent usage at same time.
-Patch7: php-5.3.0-recode.centos.patch
-
+Patch1: 0001-php-5.3.0-recode.centos.patch
 # Use the system timezone database, instead of the one distributed by PHP
-Patch42: php-7.0.0-systzdata-v13.centos.patch
-
+Patch2: 0002-php-7.0.0-systzdata-v13.centos.patch
 # Prevent pear package from dragging in devel, which drags in a lot of
 # stuff for a production machine: https://bugzilla.redhat.com/show_bug.cgi?id=657812
-Patch43: php-5.4.0-phpize.centos.patch
-
+Patch3: 0003-php-5.4.0-phpize.centos.patch
 # cPanel patches
-Patch100: php-7.1.x-mail-header.cpanel.patch
-Patch101: php-7.x-disable-zts.cpanel.patch
-Patch102: php-7.0.x-ea4-ini.patch
-Patch104: php-7.0.x-fpm-user-ini-docroot.patch
-Patch105: php-7.0.x-fpm-jailshell.patch
-Patch200: php-fpm.epoll.patch
-# Factory is droped from system tzdata
-#Patch300: php-5.6.3-datetests.centos.patch
-# Revert changes for pcre < 8.34
-#Patch301: php-7.0.0-oldpcre.centos.patch
-
+Patch4: 0004-PHP-mail-header-patch-for-v7.1.x.patch
+Patch5: 0005-Removed-ZTS-support.patch
+Patch6: 0006-Ensure-that-php.d-is-not-scanned-when-PHPRC-is-set.patch
+Patch7: 0007-php-7.0.x-fpm-user-ini-docroot.patch
+Patch8: 0008-Chroot-FPM-users-with-noshell-and-jailshell.patch
+Patch9: 0009-php-fpm.epoll.patch
 
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -951,15 +944,15 @@ inside them.
 
 %setup -q -n php-%{version}
 
-%patch7 -p1 -b .recode
-%patch42 -p1 -b .systzdata
-%patch43 -p1 -b .phpize
-%patch100 -p1 -b .cpanelmailheader
-%patch101 -p1 -b .disablezts
-%patch102 -p1 -b .cpanelea4ini
-%patch104 -p1 -b .fpmuserini
-%patch105 -p1 -b .fpmjailshell
-%patch200 -p1 -b .fpmepoll
+%patch1 -p1 -b .recode
+%patch2 -p1 -b .systzdata
+%patch3 -p1 -b .phpize
+%patch4 -p1 -b .cpanelmailheader
+%patch5 -p1 -b .disablezts
+%patch6 -p1 -b .cpanelea4ini
+%patch7 -p1 -b .fpmuserini
+%patch8 -p1 -b .fpmjailshell
+%patch9 -p1 -b .fpmepoll
 # 7.1 does not need this for tidy even thought the instructions say to do it, weird ...
 # sed -i 's/buffio.h/tidybuffio.h/' ext/tidy/*.c
 

@@ -1,20 +1,20 @@
-From 825315022ded842afb01c7783d50abc8ce58a87c Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Matt Dees <matt@cpanel.net>
 Date: Fri, 19 Aug 2016 10:10:41 -0500
-Subject: [PATCH] Chroot FPM users with noshell and jailshell
+Subject: [PATCH 8/9] Chroot FPM users with noshell and jailshell
 
 Case CPANEL-7016: This change will cause PHP-FPM to jail FPM users
 if their shells are set to noshell or jailshell no matter what.
 ---
- sapi/fpm/fpm/fpm_conf.c |  3 ++-
- sapi/fpm/fpm/fpm_unix.c | 69 +++++++++++++++++++++++++++++++++++++++++++++++++
+ sapi/fpm/fpm/fpm_conf.c |  3 +-
+ sapi/fpm/fpm/fpm_unix.c | 69 +++++++++++++++++++++++++++++++++++++++++
  2 files changed, 71 insertions(+), 1 deletion(-)
 
 diff --git a/sapi/fpm/fpm/fpm_conf.c b/sapi/fpm/fpm/fpm_conf.c
-index 9a619ce..5b09b52 100644
+index f8d5da47..ac67b00e 100644
 --- a/sapi/fpm/fpm/fpm_conf.c
 +++ b/sapi/fpm/fpm/fpm_conf.c
-@@ -1001,7 +1001,8 @@ static int fpm_conf_process_all_pools() /* {{{ */
+@@ -1002,7 +1002,8 @@ static int fpm_conf_process_all_pools() /* {{{ */
  
  				spprintf(&buf, 0, "%s/%s", wp->config->chroot, wp->config->chdir);
  
@@ -25,10 +25,10 @@ index 9a619ce..5b09b52 100644
  					efree(buf);
  					return -1;
 diff --git a/sapi/fpm/fpm/fpm_unix.c b/sapi/fpm/fpm/fpm_unix.c
-index 6089e31..20d4f98 100644
+index 1539c07b..44a3cb99 100644
 --- a/sapi/fpm/fpm/fpm_unix.c
 +++ b/sapi/fpm/fpm/fpm_unix.c
-@@ -12,6 +12,7 @@
+@@ -11,6 +11,7 @@
  #include <sys/types.h>
  #include <pwd.h>
  #include <grp.h>
@@ -36,7 +36,7 @@ index 6089e31..20d4f98 100644
  
  #ifdef HAVE_PRCTL
  #include <sys/prctl.h>
-@@ -351,6 +352,74 @@ int fpm_unix_init_child(struct fpm_worker_pool_s *wp) /* {{{ */
+@@ -350,6 +351,74 @@ int fpm_unix_init_child(struct fpm_worker_pool_s *wp) /* {{{ */
  		}
  	}
  
@@ -111,6 +111,3 @@ index 6089e31..20d4f98 100644
  	if (is_root && wp->config->chroot && *wp->config->chroot) {
  		if (0 > chroot(wp->config->chroot)) {
  			zlog(ZLOG_SYSERROR, "[pool %s] failed to chroot(%s)",  wp->config->name, wp->config->chroot);
--- 
-2.7.4
-

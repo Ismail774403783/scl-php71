@@ -1,7 +1,17 @@
-diff --git php-7.0.8/sapi/fpm/fpm/fpm_main.c php-7.0.8/sapi/fpm/fpm/fpm_main.c
---- php-7.0.8/sapi/fpm/fpm/fpm_main.c	2016-06-21 14:56:41.000000000 -0500
-+++ php-7.0.8/sapi/fpm/fpm/fpm_main.c	2016-07-11 08:47:24.737835793 -0500
-@@ -684,6 +684,9 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Tim Mullin <tim@cpanel.net>
+Date: Fri, 9 Nov 2018 19:01:51 -0600
+Subject: [PATCH 7/9] php-7.0.x-fpm-user-ini-docroot
+
+---
+ sapi/fpm/fpm/fpm_main.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
+
+diff --git a/sapi/fpm/fpm/fpm_main.c b/sapi/fpm/fpm/fpm_main.c
+index 24a7e5d5..098a04aa 100644
+--- a/sapi/fpm/fpm/fpm_main.c
++++ b/sapi/fpm/fpm/fpm_main.c
+@@ -685,6 +685,9 @@ static void php_cgi_ini_activate_user_config(char *path, int path_len, const cha
  
  	/* Check whether cache entry has expired and rescan if it is */
  	if (request_time > entry->expires) {
@@ -11,7 +21,7 @@ diff --git php-7.0.8/sapi/fpm/fpm/fpm_main.c php-7.0.8/sapi/fpm/fpm/fpm_main.c
  		char * real_path;
  		int real_path_len;
  		char *s1, *s2;
-@@ -712,6 +715,15 @@
+@@ -713,6 +716,15 @@ static void php_cgi_ini_activate_user_config(char *path, int path_len, const cha
  			s_len = path_len;
  		}
  
