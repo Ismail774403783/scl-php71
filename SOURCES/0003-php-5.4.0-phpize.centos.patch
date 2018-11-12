@@ -1,0 +1,45 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Tim Mullin <tim@cpanel.net>
+Date: Fri, 9 Nov 2018 18:55:47 -0600
+Subject: [PATCH 3/9] php-5.4.0-phpize.centos
+
+---
+ scripts/phpize.in | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
+
+diff --git a/scripts/phpize.in b/scripts/phpize.in
+index 99250da0..5f6f17e4 100644
+--- a/scripts/phpize.in
++++ b/scripts/phpize.in
+@@ -162,6 +162,15 @@ phpize_autotools()
+   $PHP_AUTOHEADER || exit 1
+ }
+ 
++phpize_check_headers()
++{
++  if test ! -f $includedir/main/php.h; then
++    echo "Can't find PHP headers in $includedir"
++    echo "The php-devel package is required for use of this command."
++    exit 1
++  fi
++}
++
+ # Main script
+ 
+ case "$1" in
+@@ -180,12 +189,15 @@ case "$1" in
+ 
+   # Version
+   --version|-v)
++    phpize_check_headers
+     phpize_print_api_numbers
+     exit 0
+   ;;
+ 
+   # Default
+   *)
++     phpize_check_headers
++
+      phpize_check_configm4 0
+ 
+      phpize_check_build_files

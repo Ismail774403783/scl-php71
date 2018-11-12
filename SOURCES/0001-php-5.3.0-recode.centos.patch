@@ -1,0 +1,27 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Tim Mullin <tim@cpanel.net>
+Date: Fri, 9 Nov 2018 18:51:29 -0600
+Subject: [PATCH 1/9] php-5.3.0-recode.centos
+
+---
+ ext/recode/config9.m4 | 7 -------
+ 1 file changed, 7 deletions(-)
+
+diff --git a/ext/recode/config9.m4 b/ext/recode/config9.m4
+index 66df50e2..4a3cd547 100644
+--- a/ext/recode/config9.m4
++++ b/ext/recode/config9.m4
+@@ -4,13 +4,6 @@ dnl
+ 
+ dnl Check for extensions with which Recode can not work
+ if test "$PHP_RECODE" != "no"; then
+-  test "$PHP_IMAP"  != "no" && recode_conflict="$recode_conflict imap"
+-
+-  if test -n "$MYSQL_LIBNAME"; then
+-    PHP_CHECK_LIBRARY($MYSQL_LIBNAME, hash_insert, [
+-      recode_conflict="$recode_conflict mysql"
+-    ])
+-  fi
+ 
+   if test -n "$recode_conflict"; then
+     AC_MSG_ERROR([recode extension can not be configured together with:$recode_conflict])
