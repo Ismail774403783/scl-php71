@@ -144,9 +144,9 @@ Summary:  PHP DSO
 %endif
 Vendor:   cPanel, Inc.
 Name:     %{?scl_prefix}php
-Version:  7.1.26
+Version:  7.1.27
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4588 for more details
-%define release_prefix 2
+%define release_prefix 1
 Release:  %{release_prefix}%{?dist}.cpanel
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
@@ -1817,6 +1817,9 @@ fi
 
 
 %changelog
+* Thu Mar 07 2019 Cory McIntire <cory@cpanel.net> - 7.1.27-1
+- Updated to version 7.1.27 via update_pkg.pl (EA-8267)
+
 * Fri Jan 25 2019 Cory McIntire <cory@cpanel.net> - 7.1.26-2
 - EA-8170: Update litespeed to the latest version (7.2)
 
