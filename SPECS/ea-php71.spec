@@ -146,7 +146,7 @@ Vendor:   cPanel, Inc.
 Name:     %{?scl_prefix}php
 Version:  7.1.29
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4588 for more details
-%define release_prefix 1
+%define release_prefix 2
 Release:  %{release_prefix}%{?dist}.cpanel
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
@@ -186,6 +186,9 @@ Patch7: 0007-php-7.0.x-fpm-user-ini-docroot.patch
 Patch8: 0008-Chroot-FPM-users-with-noshell-and-jailshell.patch
 Patch9: 0009-php-fpm.epoll.patch
 
+Patch400: 0020-PLESK-sig-block-reexec.patch
+Patch401: 0021-PLESK-avoid-child-ignorance.patch
+Patch402: 0022-PLESK-missed-kill.patch
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -964,6 +967,10 @@ inside them.
 #%patch301 -p1 -b .pcre834
 #fi
 #%endif
+
+%patch400 -p1 
+%patch401 -p1 
+%patch402 -p1 
 
 # Prevent %%doc confusion over LICENSE files
 cp Zend/LICENSE Zend/ZEND_LICENSE
@@ -1817,6 +1824,9 @@ fi
 
 
 %changelog
+* Tue May 07 2019 Julian Brown <julian.brown@cpanel.net> - 7.1.29-2
+- ZC-5063: Add PLESK Signal Managment patches for PHP-FPM
+
 * Fri May 03 2019 Cory McIntire <cory@cpanel.net> - 7.1.29-1
 - Updated to version 7.1.29 via update_pkg.pl (EA-8431)
 
