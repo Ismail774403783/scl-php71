@@ -1,7 +1,7 @@
 From 2866607caef50df5177ba5433383de44cdd66078 Mon Sep 17 00:00:00 2001
 From: Julian Brown <julian.brown@cpanel.net>
 Date: Tue, 7 May 2019 12:59:41 -0500
-Subject: [PATCH 2/3] 0021-PLESK-sig-block-reexec
+Subject: [PATCH 2/3] 0021-PLESK-avoid-child-ignorance
 
 Second of 3 signal management patches for PHP-FPM.
 ---
