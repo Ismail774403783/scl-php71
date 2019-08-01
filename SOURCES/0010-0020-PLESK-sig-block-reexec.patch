@@ -1,7 +1,7 @@
-From 526af8ab549dad416b29380ef8ce61702c8f0ad6 Mon Sep 17 00:00:00 2001
+From a89a0b5d57a8753bd0ffe2237356d13b591ea959 Mon Sep 17 00:00:00 2001
 From: Julian Brown <julian.brown@cpanel.net>
 Date: Tue, 7 May 2019 12:57:51 -0500
-Subject: [PATCH 1/3] 0020-PLESK-sig-block-reexec
+Subject: [PATCH 10/14] 0020-PLESK-sig-block-reexec
 
 First of 3 signal management patches for PHP-FPM.
 ---
@@ -12,7 +12,7 @@ First of 3 signal management patches for PHP-FPM.
  4 files changed, 73 insertions(+)
 
 diff --git a/sapi/fpm/fpm/fpm_main.c b/sapi/fpm/fpm/fpm_main.c
-index 24a7e5d5..026369b7 100644
+index 098a04a..80ca5b8 100644
 --- a/sapi/fpm/fpm/fpm_main.c
 +++ b/sapi/fpm/fpm/fpm_main.c
 @@ -109,6 +109,10 @@ int __riscosify_control = __RISCOSIFY_STRICT_UNIX_SPECS;
@@ -26,7 +26,7 @@ index 24a7e5d5..026369b7 100644
  #ifndef PHP_WIN32
  /* XXX this will need to change later when threaded fastcgi is implemented.  shane */
  struct sigaction act, old_term, old_quit, old_int;
-@@ -1604,6 +1608,15 @@ int main(int argc, char *argv[])
+@@ -1616,6 +1620,15 @@ int main(int argc, char *argv[])
  								closes it.  in apache|apxs mode apache
  								does that for us!  thies@thieso.net
  								20000419 */
@@ -43,7 +43,7 @@ index 24a7e5d5..026369b7 100644
  #endif
  
 diff --git a/sapi/fpm/fpm/fpm_process_ctl.c b/sapi/fpm/fpm/fpm_process_ctl.c
-index f99ec241..a9136c74 100644
+index f99ec24..a9136c7 100644
 --- a/sapi/fpm/fpm/fpm_process_ctl.c
 +++ b/sapi/fpm/fpm/fpm_process_ctl.c
 @@ -78,6 +78,10 @@ static void fpm_pctl_exit() /* {{{ */
@@ -58,7 +58,7 @@ index f99ec241..a9136c74 100644
  	zlog(ZLOG_NOTICE, "reloading: execvp(\"%s\", {\"%s\""
  			"%s%s%s" "%s%s%s" "%s%s%s" "%s%s%s" "%s%s%s"
 diff --git a/sapi/fpm/fpm/fpm_signals.c b/sapi/fpm/fpm/fpm_signals.c
-index 0df119be..e46dc9c3 100644
+index 0df119b..e46dc9c 100644
 --- a/sapi/fpm/fpm/fpm_signals.c
 +++ b/sapi/fpm/fpm/fpm_signals.c
 @@ -20,6 +20,7 @@
@@ -133,7 +133,7 @@ index 0df119be..e46dc9c3 100644
 +}
 +/* }}} */
 diff --git a/sapi/fpm/fpm/fpm_signals.h b/sapi/fpm/fpm/fpm_signals.h
-index 759a4e31..a18460f0 100644
+index 759a4e3..a18460f 100644
 --- a/sapi/fpm/fpm/fpm_signals.h
 +++ b/sapi/fpm/fpm/fpm_signals.h
 @@ -9,6 +9,9 @@
