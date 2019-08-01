@@ -144,9 +144,9 @@ Summary:  PHP DSO
 %endif
 Vendor:   cPanel, Inc.
 Name:     %{?scl_prefix}php
-Version:  7.1.30
+Version:  7.1.31
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4588 for more details
-%define release_prefix 4
+%define release_prefix 1
 Release:  %{release_prefix}%{?dist}.cpanel
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
@@ -1824,6 +1824,9 @@ fi
 
 
 %changelog
+* Thu Aug 01 2019 Cory McIntire <cory@cpanel.net> - 7.1.31-1
+- EA-8595: Update scl-php71 from v7.1.30 to v7.1.31
+
 * Mon Jul 22 2019 Cory McIntire <cory@cpanel.net> - 7.1.30-4
 - EA-8576: Update litespeed from upstream to 7.5
 
