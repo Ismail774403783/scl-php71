@@ -1,0 +1,37 @@
+From 931befa407558f726220a97b99bb97a8719c72f7 Mon Sep 17 00:00:00 2001
+From: Cory McIntire <cory@cpanel.net>
+Date: Thu, 1 Aug 2019 15:05:32 -0500
+Subject: [PATCH 13/14] php-5.6.3-datetests.centos
+
+---
+ ext/date/tests/bug66985.phpt | 7 +------
+ 1 file changed, 1 insertion(+), 6 deletions(-)
+
+diff --git a/ext/date/tests/bug66985.phpt b/ext/date/tests/bug66985.phpt
+index 37dcd3e..f3578f6 100644
+--- a/ext/date/tests/bug66985.phpt
++++ b/ext/date/tests/bug66985.phpt
+@@ -3,7 +3,7 @@ Bug #66985 (Some timezones are no longer valid in PHP 5.5.10)
+ --FILE--
+ <?php
+ $zones = array(
+-	"CST6CDT", "Cuba", "Egypt", "Eire", "EST5EDT", "Factory", "GB-Eire",
++	"CST6CDT", "Cuba", "Egypt", "Eire", "EST5EDT", "GB-Eire",
+ 	"GMT0", "Greenwich", "Hongkong", "Iceland", "Iran", "Israel", "Jamaica",
+ 	"Japan", "Kwajalein", "Libya", "MST7MDT", "Navajo", "NZ-CHAT", "Poland",
+ 	"Portugal", "PST8PDT", "Singapore", "Turkey", "Universal", "W-SU",
+@@ -44,11 +44,6 @@ DateTimeZone Object
+     [timezone] => EST5EDT
+ )
+ DateTimeZone Object
+-(
+-    [timezone_type] => 3
+-    [timezone] => Factory
+-)
+-DateTimeZone Object
+ (
+     [timezone_type] => 3
+     [timezone] => GB-Eire
+-- 
+2.21.0
+
