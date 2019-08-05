@@ -970,11 +970,11 @@ inside them.
 #fi
 #%endif
 
-%patch400 -p1 .sigblock
-%patch401 -p1 .avoidchildignorance
-%patch402 -p1 .missedkill
-%patch403 -p1 .datetests
-%patch404 -p1 .oldpcre
+%patch400 -p1 -b .sigblock
+%patch401 -p1 -b .avoidchildignorance
+%patch402 -p1 -b .missedkill
+%patch403 -p1 -b .datetests
+%patch404 -p1 -b .oldpcre
 
 # Prevent %%doc confusion over LICENSE files
 cp Zend/LICENSE Zend/ZEND_LICENSE
