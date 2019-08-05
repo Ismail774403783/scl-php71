@@ -144,9 +144,9 @@ Summary:  PHP DSO
 %endif
 Vendor:   cPanel, Inc.
 Name:     %{?scl_prefix}php
-Version:  7.1.30
+Version:  7.1.31
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4588 for more details
-%define release_prefix 4
+%define release_prefix 1
 Release:  %{release_prefix}%{?dist}.cpanel
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
@@ -186,9 +186,11 @@ Patch7: 0007-php-7.0.x-fpm-user-ini-docroot.patch
 Patch8: 0008-Chroot-FPM-users-with-noshell-and-jailshell.patch
 Patch9: 0009-php-fpm.epoll.patch
 
-Patch400: 0020-PLESK-sig-block-reexec.patch
-Patch401: 0021-PLESK-avoid-child-ignorance.patch
-Patch402: 0022-PLESK-missed-kill.patch
+Patch400: 0010-0020-PLESK-sig-block-reexec.patch
+Patch401: 0011-0021-PLESK-avoid-child-ignorance.patch
+Patch402: 0012-0022-PLESK-missed-kill.patch
+Patch403: 0013-php-5.6.3-datetests.centos.patch
+Patch404: 0014-php-7.0.0-oldpcre.centos.patch
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -968,9 +970,11 @@ inside them.
 #fi
 #%endif
 
-%patch400 -p1
-%patch401 -p1
-%patch402 -p1
+%patch400 -p1 -b .sigblock
+%patch401 -p1 -b .avoidchildignorance
+%patch402 -p1 -b .missedkill
+%patch403 -p1 -b .datetests
+%patch404 -p1 -b .oldpcre
 
 # Prevent %%doc confusion over LICENSE files
 cp Zend/LICENSE Zend/ZEND_LICENSE
@@ -1824,6 +1828,9 @@ fi
 
 
 %changelog
+* Thu Aug 01 2019 Cory McIntire <cory@cpanel.net> - 7.1.31-1
+- EA-8595: Update scl-php71 from v7.1.30 to v7.1.31
+
 * Mon Jul 22 2019 Cory McIntire <cory@cpanel.net> - 7.1.30-4
 - EA-8576: Update litespeed from upstream to 7.5
 

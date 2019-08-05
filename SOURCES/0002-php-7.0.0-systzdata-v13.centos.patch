@@ -1,7 +1,7 @@
-From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From c37c03bba8ad7f5d72f682f50b245e8f5c22d131 Mon Sep 17 00:00:00 2001
 From: Tim Mullin <tim@cpanel.net>
 Date: Fri, 9 Nov 2018 18:53:50 -0600
-Subject: [PATCH 2/9] php-7.0.0-systzdata-v13.centos
+Subject: [PATCH 02/14] php-7.0.0-systzdata-v13.centos
 
 Add support for use of the system timezone database, rather
 than embedding a copy.  Discussed upstream but was not desired.
@@ -31,7 +31,7 @@ r1: initial revision
  2 files changed, 552 insertions(+), 11 deletions(-)
 
 diff --git a/ext/date/lib/parse_tz.c b/ext/date/lib/parse_tz.c
-index 20d7eeac..6301dc5d 100644
+index 20d7eea..6301dc5 100644
 --- a/ext/date/lib/parse_tz.c
 +++ b/ext/date/lib/parse_tz.c
 @@ -24,6 +24,16 @@
@@ -651,7 +651,7 @@ index 20d7eeac..6301dc5d 100644
  		tmp = NULL;
  	}
 diff --git a/ext/date/lib/timelib.m4 b/ext/date/lib/timelib.m4
-index 99bf9fad..7d320e6a 100644
+index 99bf9fa..7d320e6 100644
 --- a/ext/date/lib/timelib.m4
 +++ b/ext/date/lib/timelib.m4
 @@ -78,3 +78,17 @@ stdlib.h
@@ -672,3 +672,6 @@ index 99bf9fad..7d320e6a 100644
 +   fi
 +fi
 +
+-- 
+2.21.0
+
