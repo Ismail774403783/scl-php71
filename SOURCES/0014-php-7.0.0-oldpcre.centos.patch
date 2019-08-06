@@ -1,0 +1,88 @@
+From 9b010330c36f7a60fe68f71b9952237ac1b05812 Mon Sep 17 00:00:00 2001
+From: Cory McIntire <cory@cpanel.net>
+Date: Thu, 1 Aug 2019 15:05:33 -0500
+Subject: [PATCH 14/14] php-7.0.0-oldpcre.centos
+
+---
+ ext/pcre/tests/bug37911.phpt          |  2 +-
+ ext/pcre/tests/match_flags3.phpt      |  2 +-
+ ext/pcre/tests/match_flags3.phpt.orig | 45 +++++++++++++++++++++++++++
+ 3 files changed, 47 insertions(+), 2 deletions(-)
+ create mode 100644 ext/pcre/tests/match_flags3.phpt.orig
+
+diff --git a/ext/pcre/tests/bug37911.phpt b/ext/pcre/tests/bug37911.phpt
+index 2b7481a..0d2859d 100644
+--- a/ext/pcre/tests/bug37911.phpt
++++ b/ext/pcre/tests/bug37911.phpt
+@@ -37,5 +37,5 @@ array(3) {
+   string(4) "blub"
+ }
+ 
+-Warning: preg_replace_callback(): Compilation failed: group name must start with a non-digit at offset %d in %sbug37911.php on line %d
++Warning: preg_replace_callback(): Numeric named subpatterns are not allowed in %sbug37911.php on line %d
+ NULL
+diff --git a/ext/pcre/tests/match_flags3.phpt b/ext/pcre/tests/match_flags3.phpt
+index 695f0c1..05c62a0 100644
+--- a/ext/pcre/tests/match_flags3.phpt
++++ b/ext/pcre/tests/match_flags3.phpt
+@@ -41,5 +41,5 @@ array(1) {
+   }
+ }
+ 
+-Warning: preg_match(): Compilation failed: group name must start with a non-digit at offset %d in %smatch_flags3.php on line %d
++Warning: preg_match(): Numeric named subpatterns are not allowed in %smatch_flags3.php on line %d
+ bool(false)
+diff --git a/ext/pcre/tests/match_flags3.phpt.orig b/ext/pcre/tests/match_flags3.phpt.orig
+new file mode 100644
+index 0000000..695f0c1
+--- /dev/null
++++ b/ext/pcre/tests/match_flags3.phpt.orig
+@@ -0,0 +1,45 @@
++--TEST--
++preg_match() flags 3
++--FILE--
++<?php
++
++var_dump(preg_match('', '', $match, 0xfff));
++
++var_dump(preg_match('/\d+/', '123 456 789 012', $match, 0, -8));
++var_dump($match);
++
++var_dump(preg_match('/\d+/', '123 456 789 012', $match, 0, -500));
++var_dump($match);
++
++var_dump(preg_match_all('/\d+/', '123 456 789 012', $match, 0, -8));
++var_dump($match);
++
++var_dump(preg_match('/(?P<3>)/', ''));
++
++?>
++--EXPECTF--
++Warning: preg_match(): Empty regular expression in %smatch_flags3.php on line 3
++bool(false)
++int(1)
++array(1) {
++  [0]=>
++  string(3) "789"
++}
++int(1)
++array(1) {
++  [0]=>
++  string(3) "123"
++}
++int(2)
++array(1) {
++  [0]=>
++  array(2) {
++    [0]=>
++    string(3) "789"
++    [1]=>
++    string(3) "012"
++  }
++}
++
++Warning: preg_match(): Compilation failed: group name must start with a non-digit at offset %d in %smatch_flags3.php on line %d
++bool(false)
+-- 
+2.21.0
+
