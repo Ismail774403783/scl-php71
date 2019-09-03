@@ -1,4 +1,4 @@
-From e3c1a3670bc9967ea5463c9fbc95bad0304de687 Mon Sep 17 00:00:00 2001
+From ee624f71c7aa910a6c1e0314133bdbdbd09e5b70 Mon Sep 17 00:00:00 2001
 From: Giam Teck Choon <giamteckchoon@gmail.com>
 Date: Wed, 18 Oct 2017 08:35:23 +0000
 Subject: [PATCH 04/14] PHP mail() header patch for v7.1.x
