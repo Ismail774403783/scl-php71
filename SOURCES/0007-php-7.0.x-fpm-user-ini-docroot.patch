@@ -1,4 +1,4 @@
-From 1b853d98deca5aecabb9496d40f91f87ef8f20a1 Mon Sep 17 00:00:00 2001
+From 25198aa0c8c21dd9789bd3a298a90ca9a7c096e7 Mon Sep 17 00:00:00 2001
 From: Tim Mullin <tim@cpanel.net>
 Date: Fri, 9 Nov 2018 19:01:51 -0600
 Subject: [PATCH 07/14] php-7.0.x-fpm-user-ini-docroot
@@ -8,7 +8,7 @@ Subject: [PATCH 07/14] php-7.0.x-fpm-user-ini-docroot
  1 file changed, 12 insertions(+)
 
 diff --git a/sapi/fpm/fpm/fpm_main.c b/sapi/fpm/fpm/fpm_main.c
-index 24a7e5d..098a04a 100644
+index 50f9298..cb25aa2 100644
 --- a/sapi/fpm/fpm/fpm_main.c
 +++ b/sapi/fpm/fpm/fpm_main.c
 @@ -685,6 +685,9 @@ static void php_cgi_ini_activate_user_config(char *path, int path_len, const cha
